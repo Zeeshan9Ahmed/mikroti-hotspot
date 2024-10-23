@@ -36,7 +36,7 @@
                                         {{ number_format($sale->amount, 2) }}
                                     </td>
                                     <td>
-                                        {{ Illuminate\Support\Carbon::parse($sale->transact_date)->format('M d, Y h:i:s A') }}
+                                        {{ Illuminate\Support\Carbon::parse($sale->transact_date)->setTimezone(env('APP_TIMEZONE'))->format('M d, Y h:i:s A') }}
                                     </td>
                                 </tr>
                             @empty

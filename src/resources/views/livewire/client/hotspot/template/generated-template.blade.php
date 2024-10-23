@@ -26,10 +26,10 @@
                                         {{ $template->name }}
                                     </td>
                                     <td>
-                                        {{ $template->created_at }}
+                                        {{ Illuminate\Support\Carbon::parse($template->created_at)->setTimezone(env('APP_TIMEZONE')) }}
                                     </td>
                                     <td>
-                                        {{ $template->updated_at }}
+                                        {{ Illuminate\Support\Carbon::parse($template->updated_at)->setTimezone(env('APP_TIMEZONE')) }}
                                     </td>
                                     <td style="min-width: 170px;width: 180px;">
                                         <div class="d-flex justify-content-center align-item-center">

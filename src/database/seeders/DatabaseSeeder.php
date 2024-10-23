@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\User;
@@ -15,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Permission::create(['name' =>  'admin-function']);
+        // $adminUser = Role::create(['name' => 'admin']);
+        // $adminUser->givePermissionTo([
+        //     'admin-function',
+        // ]);
+
         // User creation
         $admin = User::create([
             'name'          =>  'Administrator',
@@ -26,6 +31,8 @@ class DatabaseSeeder extends Seeder
             'license_validity'  =>  now(),
             'mobile'        =>  '09123456789',
         ]);
+
+        // $admin->assignRole('admin');
 
         // App settings
         DB::table('app_settings')->insert([
