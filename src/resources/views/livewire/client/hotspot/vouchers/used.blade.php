@@ -42,13 +42,19 @@
                                     </td>
                                     <td>
                                         <b>Generated: </b>
-                                        {{ Illuminate\Support\Carbon::parse($voucher->generation_date)->format('M d, Y h:i:s A') }}
+                                        {{ Illuminate\Support\Carbon::parse($voucher->generation_date)
+                                                                        ->setTimezone(env('APP_TIMEZONE'))
+                                                                        ->format('M d, Y h:i:s A') }}
                                         <br />
                                         <b>Used On: </b>
-                                        {{ $voucher->used_date ? Illuminate\Support\Carbon::parse($voucher->used_date)->format('M d, Y h:i:s A') : 'Not Yet' }}
+                                        {{ $voucher->used_date ? Illuminate\Support\Carbon::parse($voucher->used_date)
+                                                                        ->setTimezone(env('APP_TIMEZONE'))
+                                                                        ->format('M d, Y h:i:s A') : 'Not Yet' }}
                                         <br />
                                         <b>Expired On: </b>
-                                        {{ $voucher->used_date ? Illuminate\Support\Carbon::parse($voucher->expire_date)->format('M d, Y h:i:s A') : 'Not Yet' }}
+                                        {{ $voucher->used_date ? Illuminate\Support\Carbon::parse($voucher->expire_date)
+                                                                        ->setTimezone(env('APP_TIMEZONE'))
+                                                                        ->format('M d, Y h:i:s A') : 'Not Yet' }}
                                     </td>
                                 </tr>
                             @empty

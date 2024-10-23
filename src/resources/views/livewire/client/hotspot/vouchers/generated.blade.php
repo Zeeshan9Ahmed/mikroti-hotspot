@@ -19,6 +19,8 @@
                                     <th>Credit</th>
                                     <th>Generated</th>
                                     <th>Price</th>
+                                    <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tbody class="text text-xs text-nowrap">
@@ -37,11 +39,24 @@
                                                 {{ $voucher->uptime_limit > 0 ? "{$this->convertSeconds($voucher->uptime_limit)}" : 'Unlimited' }}</span><br />
                                         </td>
                                         <td>
-                                            {{ Illuminate\Support\Carbon::parse($voucher->generation_date)->format('M d, Y h:i:s A') }}
+                                            {{ Illuminate\Support\Carbon::parse($voucher->generation_date)
+                                                                        ->setTimezone(env('APP_TIMEZONE'))
+                                                                        ->format('M d, Y h:i:s A') }}
 
                                         </td>
                                         <td>
                                             {{ number_format($voucher->price, 2) }}
+                                        </td>
+                                        <td style="min-width: 170px;width: 180px;">
+                                            <div class="d-flex justify-content-center align-item-center">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-sm btn-danger shadow"
+                                                        wire:confirm.prompt="Are you sure?\nThis will delete also all generated voucher with this profile\n\nType {{ $voucher->id }} to confirm|{{ $voucher->id }}"
+                                                        wire:click="deleteVoucher({{ $voucher->id }})"><i
+                                                            class="fas fa-trash mr-2"></i>Delete</button>
+                                                </div>
+
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -93,7 +108,9 @@
                                             {{ $batch->reseller_name ?? 'N/A' }}
                                         </td>
                                         <td>
-                                            {{ Illuminate\Support\Carbon::parse($batch->generation_date)->format('M d, Y h:i:s A') }}
+                                            {{ Illuminate\Support\Carbon::parse($batch->generation_date)
+                                                                    ->setTimezone(env('APP_TIMEZONE'))
+                                                                    ->format('M d, Y h:i:s A') }}
                                         </td>
                                         <td>
                                             {{ number_format($batch->price, 2) }}
